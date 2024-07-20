@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DashBoard from './Components/DashBoard/DashBoard.jsx'
 import CreatePost from './Components/CreatePost/CreatePost.jsx'
 import Home from './Components/Home/Home.jsx'
+import YourPosts from './Components/YourPosts/YourPosts.jsx'
 const routes = createBrowserRouter([
   {
     path:'/',element:<SignUp></SignUp>
@@ -27,6 +28,9 @@ const routes = createBrowserRouter([
   },
   {
     path:'/home',element:<Home></Home>
+  },
+  {
+    path:'/yourposts',element:<YourPosts></YourPosts>
   }
 ]);
 ReactDOM.createRoot(document.getElementById('root')).render(

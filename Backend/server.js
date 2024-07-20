@@ -89,7 +89,8 @@ app.post(
                 content,
                 tags,
                 image,
-                user:user._id
+                user:user._id,
+                createdAt: new Date().toISOString(),
             });
             res.status(201).json(newPost); // Send successful response here
         } catch (error) {
@@ -101,13 +102,25 @@ app.post(
 // Get all blog posts
 app.get("/posts", async (req, res) => {
     try {
-        const posts = await BlogPost.find().populate("user", "email");
+        const posts = await BlogPost.find().sort({createdAt: -1});
         res.json(posts);
     } catch (err) {
         res.status(500).json({ error: error.message });
     }
 });
 
+
+// Get post of particular user
+app.get('/userpost',async(req,res) => {
+    const user = await User.findOne({email: req.body.email});
+    try{
+        const posts = await BlogPost.find({user: user._id}).sort({createdAt: -1});
+        res.json(posts);
+    }catch(err){
+        console.log(err);
+        
+    }
+});
 app.listen(3000, () => {
     console.log("server listening on port 3000");
 });

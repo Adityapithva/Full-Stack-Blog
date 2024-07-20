@@ -28,6 +28,7 @@ const CreatePost = () => {
                     'Authorization': `Bearer ${token}`,
                 },
             });
+            localStorage.setItem('token',response.data.token);
             console.log(response.data);
         } catch (error) {
             console.error(error);

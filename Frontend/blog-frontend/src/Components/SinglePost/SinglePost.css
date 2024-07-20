@@ -3,6 +3,7 @@
     max-height: 23rem;
     margin: 5px;
     padding: 5px;
+    box-sizing:content-box
 }
 img{
     width: 100%;
