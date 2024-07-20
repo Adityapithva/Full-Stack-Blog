@@ -1,8 +1,8 @@
 import './CreatePost.css';
 import { useRef } from 'react';
 import axios from 'axios';
-import Header from './Header';
-
+import Header from '../Header/Header';
+import { IoMdAddCircle } from "react-icons/io";
 const CreatePost = () => {
     const title = useRef(null);
     const content = useRef(null);
@@ -57,7 +57,7 @@ const CreatePost = () => {
                         <label htmlFor="image">Image:</label>
                         <input type="file" id="image" name="image" accept="image/*" ref={image} />
 
-                        <button type="submit">Submit</button>
+                        <button type="submit"><IoMdAddCircle /></button>
                     </form>
                 </div>
             </div>

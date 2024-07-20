@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
+const path = require("path");
 const multer = require("multer");
 const upload = require("./multerconfig.js");
 const app = express();
@@ -19,6 +20,8 @@ mongoose
     })
     .then(() => console.log("Connected to MongoDB"))
     .catch((err) => console.error("Could not connect to MongoDB...", err));
+
+app.use('/uploads',express.static(path.join(__dirname,'uploads')));
 //Register a user
 app.post("/register", async (req, res) => {
     const { email, password } = req.body;

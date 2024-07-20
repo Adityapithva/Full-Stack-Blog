@@ -1,4 +1,4 @@
-import './SignIn.css';
+import '../SignIn/SignIn.css';
 import axios from 'axios';
 import {useRef,useState} from 'react';
 import { Link } from 'react-router-dom';
@@ -50,7 +50,7 @@ const LogIn = () => {
         </p>
         {message && <p>{message}</p>}
     </form>
-    {isLoggedIn && <Navigate to="/dashboard" replace />}
+    {isLoggedIn && <Navigate to="/home" replace />}
 </div>
 }
 export default LogIn;
