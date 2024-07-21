@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import './SinglePost.css';
 
+
 const SinglePost = ({ post }) => {
     return (
         <div className="card">
