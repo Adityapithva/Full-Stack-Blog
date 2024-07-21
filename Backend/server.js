@@ -148,7 +148,7 @@ app.post('/posts/:postId/comments',authenticateToken,async(req,res) => {
     const postId = req.params.postId;
     try{
         const user = await User.findOne({email:req.user.email});
-        const comment = new Comment.create({
+        const comment = Comment.create({
             content,
             user:user._id,
             post:postId
@@ -158,6 +158,18 @@ app.post('/posts/:postId/comments',authenticateToken,async(req,res) => {
         console.log(err);
     }
 })
+
+//Get comments
+
+app.get('/posts/:postId/comments',async(req,res) => {
+    const postId = req.params.postId;
+    try{
+        const comments = await Comment.find({post:postId}).populate('user','name').sort({createdAt:-1});
+        res.json(comments);
+    }catch(err){
+        console.log(err);
+    }
+});
 app.listen(3000, () => {
     console.log("server listening on port 3000");
 });
