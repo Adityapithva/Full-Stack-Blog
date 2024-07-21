@@ -13,7 +13,7 @@ const SinglePost = ({ post }) => {
                         <span key={index} className="tag btn btn-primary">#{tag}</span>
                     ))}
                 </div>
-                <p>{post.createdAt}</p>
+                <p>{post.user.name}</p>
             </div>
         </div>
     );

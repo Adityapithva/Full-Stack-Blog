@@ -1,14 +1,33 @@
-.card{
+.card {
     width: 22rem;
     max-height: 23rem;
     margin: 5px;
     padding: 5px;
-    box-sizing:content-box
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-y: scroll;
 }
-img{
+.card::-webkit-scrollbar {
+    width:0%
+}
+
+
+
+
+img {
     width: 100%;
     max-height: 200px;
+    object-fit: cover; 
 }
-.tag{
+
+.tag {
     margin: 2px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    background-color: #eee;
+    font-size: 0.9rem;
+    color: #333;
+    display: inline-block;
 }

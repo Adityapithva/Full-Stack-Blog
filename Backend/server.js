@@ -24,20 +24,20 @@ mongoose
 app.use('/uploads',express.static(path.join(__dirname,'uploads')));
 //Register a user
 app.post("/register", async (req, res) => {
-    const { email, password } = req.body;
+    const { name,email, password } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
         return res.status(400).json({ message: "User already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ email, password: hashedPassword });
+    const newUser = await User.create({name, email, password: hashedPassword });
     res.status(201).json({ message: "User registered successfully" });
 });
 
 //Login a user
 app.post("/login", async (req, res) => {
-    const { email, password } = req.body;
+    const {name, email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
         return res.status(400).json({ message: "Invalid credentials" });
@@ -56,6 +56,8 @@ app.post("/login", async (req, res) => {
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
+    console.log(token);
+    
     if (!token) {
         return res.status(401).json({ message: "Token is not provided" });
     }
@@ -102,23 +104,22 @@ app.post(
 // Get all blog posts
 app.get("/posts", async (req, res) => {
     try {
-        const posts = await BlogPost.find().sort({createdAt: -1});
+        const posts = await BlogPost.find().populate('user','name').sort({createdAt: -1});        
         res.json(posts);
     } catch (err) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: err.message });
     }
 });
 
 
 // Get post of particular user
-app.get('/userpost',async(req,res) => {
-    const user = await User.findOne({email: req.body.email});
+app.get('/userpost',authenticateToken,async(req,res) => {
+    const user = await User.findOne({email: req.user.email});        
     try{
-        const posts = await BlogPost.find({user: user._id}).sort({createdAt: -1});
+        const posts = await BlogPost.find({user:user._id}).sort({createdAt: -1});
         res.json(posts);
     }catch(err){
-        console.log(err);
-        
+        console.log(err);   
     }
 });
 app.listen(3000, () => {

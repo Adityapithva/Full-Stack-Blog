@@ -6,13 +6,14 @@ import { Navigate } from 'react-router-dom';
 const LogIn = () => {
     const [message, setMessage] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+    let name = useRef(null);
     let email = useRef(null);
     let password = useRef(null);
     const handleSubmit = async(e) => {
         e.preventDefault();
         try{
             const res = await axios.post('http://localhost:3000/login',{
+                name: name.current.value,
                 email:email.current.value,
                 password: password.current.value
             });
@@ -34,6 +35,10 @@ const LogIn = () => {
     return <div className="container">
     <form className="form" onSubmit={handleSubmit}>
         <p className="form-title">Sign In to your Accout</p>
+        <div className="input-container">
+            <input type="text" placeholder="Enter name" ref={name}/>
+            <span />
+        </div>
         <div className="input-container">
             <input type="email" placeholder="Enter email" ref={email}/>
             <span />

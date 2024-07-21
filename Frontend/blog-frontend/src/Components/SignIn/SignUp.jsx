@@ -3,6 +3,7 @@ import {useState,useRef} from 'react';
 import './SignIn.css';
 import { Link } from 'react-router-dom';
 const SignIn = () => {
+    const name =  useRef(null);
     const email = useRef(null);
     const password = useRef(null);
     const [message,setMessage] = useState('');
@@ -10,6 +11,7 @@ const SignIn = () => {
         e.preventDefault();
         try{
             const res = await axios.post('http://localhost:3000/register',{
+                name: name.current.value,
                 email: email.current.value,
                 password: password.current.value
             });
@@ -27,6 +29,10 @@ const SignIn = () => {
     return <div className="container">
             <form className="form" onSubmit={handleSubmit}>
                 <p className="form-title">Create an Account</p>
+                <div className="input-container">
+                    <input type="text" placeholder="Enter name" ref={name}/>
+                    <span />
+                </div>
                 <div className="input-container">
                     <input type="email" placeholder="Enter email" ref={email}/>
                     <span />
